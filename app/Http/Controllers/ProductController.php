@@ -15,9 +15,12 @@ class ProductController extends Controller
                 ->when(request('search'), function ($q, $search) {
                     $q->where('post', 'like', "%{$search}%");
                 })
+                ->when(request('orderBy'), function ($q, $orderBy) {
+                    $q->orderBy($orderBy, 'desc');
+                })
                 ->paginate(25)
                 ->withQueryString(),
-            'filters' => $request->only('search')
+            'filters' => $request->only('search','orderBy')
         ]);
     }
 }

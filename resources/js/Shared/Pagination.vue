@@ -5,7 +5,8 @@
     :key="index"
     v-html="link.label"
     class="px-2 text-sm"
-    :href="link.url"
+    :class="link.active ? 'makeActive' : ''"
+    :href="link.active ? '' : link.url"
     preserve-scroll
   />
 </template>
@@ -18,10 +19,13 @@ export default {
 };
 </script>
 <style>
-a{
-    font-size: 0.9rem !important;
+.makeActive {
+  color: black;
 }
-span{
-    font-size: 0.9rem !important;
+a {
+  font-size: 0.9rem !important;
+}
+span {
+  font-size: 0.9rem !important;
 }
 </style>

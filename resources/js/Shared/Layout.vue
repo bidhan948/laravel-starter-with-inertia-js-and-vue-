@@ -64,6 +64,18 @@
                   </div>
                 </Link>
                 <!-- parent pages--><Link
+                  class="nav-link"
+                  href="/test"
+                  role="button"
+                  aria-expanded="false"
+                >
+                  <div class="d-flex align-items-center">
+                    <span class="nav-link-icon"
+                      ><span class="fab fa-product-hunt"></span></span
+                    ><span class="nav-link-text ps-1">Test</span>
+                  </div>
+                </Link>
+                <!-- parent pages--><Link
                   class="nav-link dropdown-indicator"
                   href="#events"
                   role="button"

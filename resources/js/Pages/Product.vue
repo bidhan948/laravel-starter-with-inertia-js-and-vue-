@@ -20,22 +20,21 @@
         <thead class="bg-200 text-900">
           <tr>
             <th>
-              <span class="px-2"> Sn </span
-              ><span class="fas fa-arrow-down"></span>
+              <span class="px-2"> Sn <Orderby @click="orderBy('id')" /> </span>
             </th>
             <th>
               <span class="px-2"> Post </span
-              ><span class="fas fa-arrow-down"></span>
+              ><Orderby @click="orderBy('post')" />
             </th>
             <th>
               <span class="px-2"> Likes </span
-              ><span class="fas fa-arrow-down"></span>
+              ><Orderby @click="orderBy('like')" />
             </th>
           </tr>
         </thead>
         <tbody class="list">
           <tr v-for="(product, key) in products.data" :key="product.id">
-            <td class="name">{{ key + 1 }}</td>
+            <td class="name">{{ sn++ }}</td>
             <td class="email">{{ product.post }}</td>
             <td class="age">{{ product.like }}</td>
           </tr>
@@ -50,24 +49,30 @@
 
 <script setup>
 import { Inertia } from "@inertiajs/inertia";
-import { ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { ref } from "vue";
+import { reactive, watch } from "@vue/runtime-core";
 import Pagination from "../Shared/Pagination";
+import Orderby from "../Shared/Orderby";
 import throttle from "lodash/throttle";
 
 let search = ref(props.filters.search);
+
 let props = defineProps({
   products: Object,
   filters: Object,
 });
+let sn = reactive(props.products.from);
+
+let orderBy = (param) => {
+  sn = 1;
+  console.log(sn);
+  Inertia.get("/product", { orderBy: param }, { replace: true });
+};
+
 watch(
   search,
   throttle(function (value) {
-    Inertia.get(
-      "/product",
-      { search: value },
-      { preserveState: true, replace: true }
-    );
+    Inertia.get("/product", { search: value }, { replace: true });
   }, 500)
 );
 </script>
